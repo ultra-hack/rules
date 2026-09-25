@@ -1,0 +1,9 @@
+// _sass/custom/custom.scss
+@font-face {
+  font-family: 'Souvenir';
+  src: url('/assets/fonts/Souvenir.ttf') format('truetype');
+}
+
+body {
+  font-family: 'Souvenir', sans-serif !important;
+}
