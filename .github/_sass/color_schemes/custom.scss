@@ -6,20 +6,4 @@
   font-display: swap;
 }
 
-html,
-body {
-  font-family: "Souvenir", serif;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.site-title,
-.nav-list,
-.search-input,
-.btn {
-  font-family: "Souvenir", serif;
-}
+$body-font-family: "Souvenir", serif;
