@@ -4,9 +4,17 @@ layout: home
 ---
 ULTRA HACK - ролевая игра про рискованные приключения в причудливых мирах.
 
-[Just the Docs]: https://just-the-docs.github.io/just-the-docs/
-[GitHub Pages]: https://docs.github.com/en/pages
-[README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
-[Jekyll]: https://jekyllrb.com
-[GitHub Pages / Actions workflow]: https://github.blog/changelog/2022-07-27-github-pages-custom-github-actions-workflows-beta/
-[use this template]: https://github.com/just-the-docs/just-the-docs-template/generate
+### Правила
+[Принципы игры](Принципы игры)
+[Создание персонажа](Создание персонажа)
+- [Классы](Классы)
+- [Расы (опционально)](Опционально)
+- [Характеристики](Характеристики)
+[Приключения](Приключения)
+- [Путешествия](Путешествия)
+- [Сражения](Сражения)
+- [Получение опыта](Получение опыта)
+- [Развитие поселения (опционально)](Развитие поселения)
+[Список заклинаний](Заклинания)
+[Бестиарий](Бестиарий)
+[Хаос](Хаос)
