@@ -5,33 +5,39 @@
   font-weight: normal;
   font-style: normal;
 }
-// Границы для всех ячеек
-table {
-  border-collapse: collapse;
-  width: 100%;
 
-  th,
-  td {
-    border: 1px solid #d0d0d0;
-    padding: 0.5rem 0.75rem;
+.main-content {
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1.5rem;
+
+    // Границы для ячеек
+    th,
+    td {
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+    }
+
+    // Заголовки
+    th {
+      background-color: rgba(0, 0, 0, 0.06);
+      font-weight: 600;
+    }
+
+    // Полосатые строки (зебра)
+    tbody tr:nth-child(odd) {
+      background-color: #f8f8f8;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f0f0f0;
+    }
+
+    // Подсветка при наведении — опционально
+    tbody tr:hover {
+      background-color: #e8e8e8;
+    }
   }
-
-  th {
-    background-color: #f0f0f0;
-    font-weight: 600;
-  }
-}
-
-// Полосатые строки (зебра)
-tbody tr:nth-child(odd) {
-  background-color: #f8f8f8;
-}
-
-tbody tr:nth-child(even) {
-  background-color: #f0f0f0;
-}
-
-// Подсветка при наведении — опционально
-tbody tr:hover {
-  background-color: #eef4ff;
 }
