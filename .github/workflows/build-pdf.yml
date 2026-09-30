@@ -42,7 +42,6 @@ jobs:
             --toc
             --toc-depth=3
             --pdf-engine=xelatex
-            -V mainfont="DejaVu Sans"
             -V geometry:margin=1in
             --number-sections
 
