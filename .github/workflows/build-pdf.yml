@@ -1,4 +1,4 @@
-name: Build PDF from Docs
+name: Build Unified Markdown
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-pdf:
+  build-unified:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -33,21 +33,9 @@ jobs:
             end
           '
 
-      - name: Create output directory
-        run: mkdir -p output
-
-      - name: Convert to PDF with Pandoc
-        run: |
-          docker run --rm \
-            --entrypoint sh \
-            -v "$PWD:/data" \
-            -w /data \
-            pandoc/extra:3.8 \
-            -c "apk update && apk add --no-cache font-dejavu && pandoc unified.md -o output/documentation.pdf --toc --toc-depth=3 --pdf-engine=xelatex -V mainfont='DejaVu Sans' -V geometry:margin=1in --number-sections"
-
-      - name: Upload PDF artifact
+      - name: Upload unified markdown
         uses: actions/upload-artifact@v4
         with:
-          name: documentation-pdf
-          path: output/documentation.pdf
+          name: unified-markdown
+          path: unified.md
           retention-days: 90
