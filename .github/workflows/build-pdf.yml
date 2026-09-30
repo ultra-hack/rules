@@ -32,18 +32,22 @@ jobs:
                 write(io, result)
             end
           '
-- name: Convert to PDF with Pandoc
-  uses: docker://pandoc/extra:3.8
-  with:
-    args: >-
-      unified.md
-      -o output/documentation.pdf
-      --toc
-      --toc-depth=3
-      --pdf-engine=xelatex
-      -V mainfont="DejaVu Sans"
-      -V geometry:margin=1in
-      --number-sections
+
+      - name: Create output directory
+        run: mkdir -p output
+
+      - name: Convert to PDF with Pandoc
+        uses: docker://pandoc/extra:3.8
+        with:
+          args: >-
+            unified.md
+            -o output/documentation.pdf
+            --toc
+            --toc-depth=3
+            --pdf-engine=xelatex
+            -V mainfont="DejaVu Sans"
+            -V geometry:margin=1in
+            --number-sections
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v4
