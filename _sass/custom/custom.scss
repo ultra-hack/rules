@@ -6,38 +6,37 @@
   font-style: normal;
 }
 
-.main-content {
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 1.5rem;
+// _sass/custom/custom.scss
 
-    // Границы для ячеек
+// Основной контейнер контента, чтобы стили применились именно к контенту страницы
+.main-content {
+  // Селектор .table-wrapper > table гарантирует, что мы обращаемся именно к таблице внутри обёртки
+  .table-wrapper > table {
+    // Границы для всех ячеек
     th,
     td {
-      border: 1px solid rgba(0, 0, 0, 0.15);
-      padding: 0.6rem 0.8rem;
-      text-align: left;
+      border: 1px solid #d0d0d0 !important; // !important гарантирует применение
+      padding: 0.6rem 0.8rem !important;
     }
 
     // Заголовки
     th {
-      background-color: rgba(0, 0, 0, 0.06);
-      font-weight: 600;
+      background-color: #e0e0e0 !important; // Сделаем заголовок чуть темнее
+      font-weight: 600 !important;
     }
 
     // Полосатые строки (зебра)
-    tbody tr:nth-child(odd) {
-      background-color: #f8f8f8;
+    tbody tr:nth-child(odd) > td {
+      background-color: #f8f8f8 !important;
     }
 
-    tbody tr:nth-child(even) {
-      background-color: #f0f0f0;
+    tbody tr:nth-child(even) > td {
+      background-color: #f0f0f0 !important;
     }
 
-    // Подсветка при наведении — опционально
-    tbody tr:hover {
-      background-color: #e8e8e8;
+    // Подсветка при наведении (опционально)
+    tbody tr:hover > td {
+      background-color: #e8e8e8 !important;
     }
   }
 }
