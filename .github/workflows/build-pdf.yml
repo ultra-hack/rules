@@ -27,8 +27,9 @@ jobs:
         run: |
           julia -e '
             using UnifyJustTheDocs
-            composite("."; pandoc_anchors = true) |> open("unified.md", "w") do io
-              write(io, _)
+            result = composite("."; pandoc_anchors = true)
+            open("unified.md", "w") do io
+                write(io, result)
             end
           '
 
