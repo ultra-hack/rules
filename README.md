@@ -1,7 +1,7 @@
 ---
 title: УЛЬТРА РЕЗНЯ
 layout: home
-nav_exclude: false  
+nav_exclude: true  
 ---
 
 ULTRA HACK - ролевая игра про рискованные приключения в причудливых мирах.
