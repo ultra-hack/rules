@@ -6,7 +6,10 @@
   font-style: normal;
 }
 
-// _sass/custom/custom.scss
+.main-content hr {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
 
 // Основной контейнер контента, чтобы стили применились именно к контенту страницы
 .main-content {
