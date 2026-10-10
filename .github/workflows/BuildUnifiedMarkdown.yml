@@ -28,12 +28,7 @@ jobs:
           julia -e '
             using UnifyJustTheDocs
             docs = composite("docs"; pandoc_anchors = true)
-            index = read("index.md", String)
-            parts = split(index, "---"; limit = 3)
-            index_body = length(parts) >= 3 ? parts[3] : index
             open("unified.md", "w") do io
-                write(io, strip(index_body))
-                write(io, "\n\n")
                 write(io, docs)
             end
           '
