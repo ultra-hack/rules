@@ -20,8 +20,8 @@ jobs:
       - name: Cache Julia packages
         uses: julia-actions/cache@v2
 
-      - name: Install UnifyJustTheDocs
-        run: julia -e 'using Pkg; Pkg.add("UnifyJustTheDocs")'
+      - name: Install Julia packages
+        run: julia -e 'using Pkg; Pkg.add(["UnifyJustTheDocs", "YAML"])'
 
       - name: Diagnose each file
         run: |
