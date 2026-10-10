@@ -12,57 +12,47 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Julia
-        uses: julia-actions/setup-julia@v2
-        with:
-          version: '1.10'
-
-      - name: Cache Julia packages
-        uses: julia-actions/cache@v2
-
-      - name: Install Julia packages
-        run: julia -e 'using Pkg; Pkg.add(["UnifyJustTheDocs", "YAML"])'
-
-      - name: Diagnose each file
+      - name: Build unified.md
         run: |
-          julia -e '
-            using YAML
-            for (root, dirs, files) in walkdir(".")
-                occursin("_site", root) && continue
-                occursin(".git", root) && continue
-                for f in files
-                    endswith(f, ".md") || continue
-                    path = joinpath(root, f)
-                    content = read(path, String)
-                    if startswith(content, "---")
-                        parts = split(content, "---"; limit = 3)
-                        if length(parts) >= 3
-                            try
-                                YAML.load(parts[2])
-                            catch e
-                                println("BROKEN FILE: ", path)
-                                println("  Error: ", e)
-                                println("  --- FRONT MATTER START ---")
-                                println(parts[2])
-                                println("  --- FRONT MATTER END ---")
-                            end
-                        else
-                            println("NO CLOSING ---: ", path)
-                        end
-                    end
-                end
-            end
-          '
+          : > unified.md
 
-      - name: Generate unified markdown
-        run: |
-          julia -e '
-            using UnifyJustTheDocs
-            result = composite("."; pandoc_anchors = true)
-            open("unified.md", "w") do io
-                write(io, result)
-            end
-          '
+          # Функция: выводит файл без front matter (--- ... ---)
+          strip_fm() {
+            awk '
+              NR==1 && $0=="---" { in_fm=1; next }
+              in_fm && $0=="---" { in_fm=0; next }
+              !in_fm { print }
+            ' "$1"
+          }
+
+          # 1) index.md — первым
+          if [ -f index.md ]; then
+            echo "# ULTRA HACK" >> unified.md
+            echo "" >> unified.md
+            strip_fm index.md >> unified.md
+            echo "" >> unified.md
+            echo "---" >> unified.md
+          fi
+
+          # 2) README.md — вторым
+          if [ -f README.md ]; then
+            strip_fm README.md >> unified.md
+            echo "" >> unified.md
+            echo "---" >> unified.md
+          fi
+
+          # 3) Все остальные .md из docs/, отсортированные по имени
+          find docs -name '*.md' | sort | while IFS= read -r f; do
+            echo "" >> unified.md
+            echo "---" >> unified.md
+            echo "" >> unified.md
+            strip_fm "$f" >> unified.md
+          done
+
+          echo "=== Готово. Статистика: ==="
+          wc -l unified.md
+          echo "=== Первые 30 строк: ==="
+          head -30 unified.md
 
       - name: Upload unified markdown
         uses: actions/upload-artifact@v4
