@@ -27,9 +27,14 @@ jobs:
         run: |
           julia -e '
             using UnifyJustTheDocs
-            result = composite("."; pandoc_anchors = true)
+            docs = composite("docs"; pandoc_anchors = true)
+            index = read("index.md", String)
+            parts = split(index, "---"; limit = 3)
+            index_body = length(parts) >= 3 ? parts[3] : index
             open("unified.md", "w") do io
-                write(io, result)
+                write(io, strip(index_body))
+                write(io, "\n\n")
+                write(io, docs)
             end
           '
 
