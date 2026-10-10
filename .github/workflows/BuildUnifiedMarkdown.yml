@@ -23,13 +23,44 @@ jobs:
       - name: Install UnifyJustTheDocs
         run: julia -e 'using Pkg; Pkg.add("UnifyJustTheDocs")'
 
+      - name: Diagnose each file
+        run: |
+          julia -e '
+            using YAML
+            for (root, dirs, files) in walkdir(".")
+                occursin("_site", root) && continue
+                occursin(".git", root) && continue
+                for f in files
+                    endswith(f, ".md") || continue
+                    path = joinpath(root, f)
+                    content = read(path, String)
+                    if startswith(content, "---")
+                        parts = split(content, "---"; limit = 3)
+                        if length(parts) >= 3
+                            try
+                                YAML.load(parts[2])
+                            catch e
+                                println("BROKEN FILE: ", path)
+                                println("  Error: ", e)
+                                println("  --- FRONT MATTER START ---")
+                                println(parts[2])
+                                println("  --- FRONT MATTER END ---")
+                            end
+                        else
+                            println("NO CLOSING ---: ", path)
+                        end
+                    end
+                end
+            end
+          '
+
       - name: Generate unified markdown
         run: |
           julia -e '
             using UnifyJustTheDocs
-            docs = composite("docs"; pandoc_anchors = true)
+            result = composite("."; pandoc_anchors = true)
             open("unified.md", "w") do io
-                write(io, docs)
+                write(io, result)
             end
           '
 
