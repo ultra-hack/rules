@@ -3,3 +3,28 @@
   <script src="{{ '/assets/js/vendor/lunr.stemmer.support.min.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/vendor/lunr.ru.min.js' | relative_url }}"></script>
 {%- endif -%}
+<script>
+  (function() {
+    // 1. Читаем сохранённую тему
+    var saved = localStorage.getItem('theme');
+    if (!saved || saved === 'ultra') return; // светлая — по умолчанию, ничего не делаем
+
+    // 2. Ждём, пока загрузится jtd (он подключается в конце body)
+    var tries = 0;
+    var timer = setInterval(function() {
+      if (typeof jtd !== 'undefined') {
+        clearInterval(timer);
+        // 3. Применяем тему, если она ещё не активна
+        if (jtd.getTheme() !== saved) {
+          jtd.setTheme(saved);
+        }
+        // 4. Обновляем текст на кастомной кнопке (если она есть)
+        var btn = document.getElementById('theme-toggle');
+        if (btn) {
+          btn.textContent = (saved === 'darker') ? 'Тема ultra' : 'Тёмная тема';
+        }
+      }
+      if (++tries > 100) clearInterval(timer); // страховка от вечного ожидания
+    }, 50);
+  })();
+</script>
