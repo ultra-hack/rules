@@ -18,11 +18,9 @@
 </button>
 
 <script>
-  // Этот код сработает, когда страница и все скрипты (включая jtd) уже загружены
+  // Меняем текст кнопки, если страница загрузилась в тёмной теме
   window.addEventListener('load', function() {
-    var saved = localStorage.getItem('theme');
-    if (saved === 'darker' && typeof jtd !== 'undefined') {
-      jtd.setTheme('darker');
+    if (localStorage.getItem('theme') === 'darker') {
       var btn = document.getElementById('theme-toggle');
       if (btn) btn.textContent = 'Светлая тема';
     }
