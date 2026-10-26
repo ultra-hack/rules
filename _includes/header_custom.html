@@ -6,17 +6,57 @@
   Telegram-канал
 </a>
 
-<button
-  class="btn btn-outline"
-  style="margin-left: 1rem;"
-  onclick="
-    this.textContent = this.textContent === 'Тёмная тема' ? 'Светлая тема' : 'Тёмная тема';
-    if (typeof jtd !== 'undefined') {
-      var next = jtd.getTheme() === 'darker' ? 'ultra' : 'darker';
-      jtd.setTheme(next);
-      localStorage.setItem('theme', next);
-    }
-  "
->
+<button id="theme-toggle" class="btn btn-outline" style="margin-left: 1rem;">
   Тёмная тема
 </button>
+
+<script>
+(function() {
+  var btn = document.getElementById('theme-toggle');
+  if (!btn) { console.warn('Кнопка #theme-toggle не найдена'); return; }
+
+  function isDark() {
+    return typeof jtd !== 'undefined' && jtd.getTheme() === 'darker';
+  }
+
+  function setLabel() {
+    btn.textContent = isDark() ? 'Светлая тема' : 'Тёмная тема';
+  }
+
+  // Клик: переключаем тему
+  btn.addEventListener('click', function() {
+    if (typeof jtd === 'undefined') {
+      console.warn('jtd ещё не загружен');
+      return;
+    }
+    try {
+      var next = isDark() ? 'ultra' : 'darker';
+      jtd.setTheme(next);
+      localStorage.setItem('theme', next);
+      setLabel();
+    } catch (e) {
+      console.error('Ошибка переключения:', e);
+    }
+  });
+
+  // Применяем сохранённую тему, как только jtd становится доступен.
+  // Полинг нужен, потому что just-the-docs.js грузится в конце body,
+  // то есть позже, чем этот скрипт.
+  var tries = 0;
+  (function applySaved() {
+    if (typeof jtd === 'undefined') {
+      if (tries++ < 100) setTimeout(applySaved, 50);
+      return;
+    }
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved && saved !== jtd.getTheme()) {
+        jtd.setTheme(saved);
+      }
+    } catch (e) {
+      console.error('Ошибка применения темы:', e);
+    }
+    setLabel();
+  })();
+})();
+</script>
