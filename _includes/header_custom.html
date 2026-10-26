@@ -6,36 +6,12 @@
   Telegram-канал
 </a>
 
-<button id="theme-toggle" class="btn btn-outline" style="margin-left: 1rem;">
-  Тёмная тема
-</button>
-
+<button id="theme-toggle" class="btn">Тема</button>
 <script>
-  (function() {
-    var btn = document.getElementById('theme-toggle');
-    var currentTheme = localStorage.getItem('theme') || 'ultra';
-
-    // Устанавливаем сохранённую тему при загрузке
-    if (currentTheme === 'darker') {
-      jtd.setTheme('darker');
-      btn.textContent = 'Тема ultra';
-    } else {
-      // 'ultra' уже загружена из _config.yml, но на всякий случай
-      jtd.setTheme('ultra');
-      btn.textContent = 'Тёмная тема';
+  document.getElementById('theme-toggle').addEventListener('click', function() {
+    console.log('click!', typeof jtd);
+    if (typeof jtd !== 'undefined') {
+      jtd.setTheme(jtd.getTheme() === 'darker' ? 'ultra' : 'darker');
     }
-
-    btn.addEventListener('click', function() {
-      var isDark = localStorage.getItem('theme') === 'darker';
-      if (isDark) {
-        jtd.setTheme('ultra');
-        localStorage.setItem('theme', 'ultra');
-        btn.textContent = 'Тёмная тема';
-      } else {
-        jtd.setTheme('darker');
-        localStorage.setItem('theme', 'darker');
-        btn.textContent = 'Светлая тема';
-      }
-    });
-  })();
+  });
 </script>
