@@ -1,13 +1,27 @@
-$body-font-family: 'Cambria', serif;
+@import "./color_schemes/dark";
+
+$ultra-dark-mode: true;
+$body-font-family: 'Cambria', Georgia, serif;
 $body-background-color: #1A1519;
 $body-text-color: #E8E0E8;
 $body-heading-color: #C792EA;
 $sidebar-color: #251E2A;
-$code-background-color: #2A222E;
 $link-color: #E89CC4;
+$nav-child-link-color: #CDBFD1;
+$base-button-color: #382C3D;
+$btn-primary-color: #70416D;
+$feedback-color: #382C3D;
+$border-color: #493C4F;
+$code-background-color: #2A222E;
+$code-linenumber-color: #B8A8BF;
+$table-background-color: #2D2531;
+$search-background-color: #2A222E;
+$search-result-preview-color: #CDBFD1;
+
 $table-header-bg: #493450;
 $table-header-text: #F2DDF7;
 $table-row-odd-bg: #2D2531;
 $table-row-even-bg: #382C3D;
 $table-row-hover-bg: #59415E;
 $table-cell-text: #F2DDF7;
+$table-cell-border: #59465F;
