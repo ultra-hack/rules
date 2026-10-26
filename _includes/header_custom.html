@@ -11,6 +11,7 @@
     var next = jtd.getTheme() === 'darker' ? 'ultra' : 'darker';
     jtd.setTheme(next);
     localStorage.setItem('theme', next);
+    localStorage.setItem('jtd-theme', next); // Дублируем для внутренних механизмов JTD
     this.textContent = next === 'darker' ? 'Светлая тема' : 'Тёмная тема';
   "
 >
@@ -18,9 +19,10 @@
 </button>
 
 <script>
-  // Меняем текст кнопки, если страница загрузилась в тёмной теме
+  // Если страница загрузилась уже в тёмной теме — сразу меняем текст кнопки
   window.addEventListener('load', function() {
-    if (localStorage.getItem('theme') === 'darker') {
+    var saved = localStorage.getItem('theme');
+    if (saved === 'darker') {
       var btn = document.getElementById('theme-toggle');
       if (btn) btn.textContent = 'Светлая тема';
     }
