@@ -8,13 +8,14 @@
 
 <button
   id="theme-toggle"
-  class="btn btn-outline"
-  style="margin-left: 1rem;"
+  class="btn"
+  style="align-self: center; height: auto; padding: 0.4rem 0.8rem; line-height: 1; margin-left: 1rem;"
   onclick="
-    if (typeof jtd === 'undefined') return;
+    if (typeof jtd === 'undefined') { console.log('[Кнопка] ОШИБКА: jtd не загружен'); return; }
     var next = jtd.getTheme() === 'darker' ? 'ultra' : 'darker';
     jtd.setTheme(next);
     localStorage.setItem('theme', next);
+    console.log('[Кнопка] Тема переключена на:', next);
     this.textContent = next === 'darker' ? 'Светлая тема' : 'Тёмная тема';
   "
 >
