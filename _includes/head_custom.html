@@ -5,22 +5,16 @@
 {%- endif -%}
 
 <script>
-  (function () {
-    try {
-      var saved = localStorage.getItem('theme');
-      if (saved === 'darker') {
-        // Находим основной CSS-файл темы и подменяем его на тёмный
-        var link = document.querySelector('link[rel="stylesheet"]');
-        if (link) {
-          // Заменяем just-the-docs-default.css (или ultra.css) на darker.css
-          link.setAttribute(
-            'href',
-            link.getAttribute('href').replace(/-(default|ultra)\.css/, '-darker.css')
-          );
+  (function() {
+    var saved = localStorage.getItem('theme');
+    if (saved === 'darker') {
+      // Находим все CSS-файлы и подменяем основной на тёмный
+      var links = document.querySelectorAll('link[rel="stylesheet"]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].href.indexOf('just-the-docs') !== -1) {
+          links[i].href = links[i].href.replace(/just-the-docs-(default|ultra)\.css/, 'just-the-docs-darker.css');
         }
-        // Помечаем html для возможных CSS-правил
-        document.documentElement.setAttribute('data-theme', 'darker');
       }
-    } catch (e) { /* молча игнорируем */ }
+    }
   })();
 </script>
