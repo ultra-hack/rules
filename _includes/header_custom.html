@@ -5,3 +5,37 @@
    style="align-self: center; height: auto; padding: 0.4rem 0.8rem; line-height: 1;">
   Telegram-канал
 </a>
+
+<button id="theme-toggle" class="btn btn-outline" style="margin-left: 1rem;">
+  Тёмная тема
+</button>
+
+<script>
+  (function() {
+    const toggleButton = document.getElementById('theme-toggle');
+    const body = document.body;
+    const savedTheme = localStorage.getItem('theme');
+
+    // По умолчанию — ultra (светлая)
+    if (savedTheme === 'dark') {
+      body.setAttribute('data-theme', 'dark');
+      toggleButton.textContent = 'Тема ultra';
+    } else {
+      body.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'ultra');
+      toggleButton.textContent = 'Тёмная тема';
+    }
+
+    toggleButton.addEventListener('click', () => {
+      if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'ultra');
+        toggleButton.textContent = 'Тёмная тема';
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        toggleButton.textContent = 'Тема ultra';
+      }
+    });
+  })();
+</script>
