@@ -7,22 +7,14 @@
 <script>
   (function() {
     var saved = localStorage.getItem('theme');
-    if (!saved || saved === 'ultra') return; // светлая тема — по умолчанию
-
-    var tries = 0;
-    var timer = setInterval(function() {
-      if (typeof jtd !== 'undefined') {
-        clearInterval(timer);
-        if (jtd.getTheme() !== saved) {
-          jtd.setTheme(saved);
-        }
-        // Обновляем текст на кнопке, если она уже есть в DOM
-        var btn = document.getElementById('theme-toggle');
-        if (btn) {
-          btn.textContent = saved === 'darker' ? 'Светлая тема' : 'Тёмная тема';
-        }
-      }
-      if (++tries > 100) clearInterval(timer); // страховка от вечного ожидания
-    }, 50);
+    if (saved === 'darker') {
+      // Сразу подгружаем CSS тёмной темы, чтобы не было вспышки
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = '{{ "/assets/css/just-the-docs-darker.css" | relative_url }}';
+      document.head.appendChild(link);
+      // Устанавливаем атрибут для возможных CSS-правил
+      document.documentElement.setAttribute('data-theme', 'darker');
+    }
   })();
 </script>
