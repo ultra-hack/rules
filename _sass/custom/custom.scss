@@ -13,36 +13,43 @@
   margin-bottom: 0.5rem !important;
 }
 
-// Основной контейнер контента, чтобы стили применились именно к контенту страницы
+// Цвета светлой темы.
+// !default сохраняет значения, заданные в darker.scss.
+$table-header-bg: #D9C3E1 !default;
+$table-header-text: inherit !default;
+$table-row-odd-bg: #FAF5E8 !default;
+$table-row-even-bg: #EEE4D6 !default;
+$table-row-hover-bg: #E8D4ED !default;
+$table-cell-text: inherit !default;
+
 .main-content {
-  // Селектор .table-wrapper > table гарантирует, что мы обращаемся именно к таблице внутри обёртки
   .table-wrapper > table {
-    // Границы для всех ячеек
     th,
     td {
-      border: 1px solid #d0d0d0 !important; // !important гарантирует применение
+      border: 1px solid #d0d0d0 !important;
       padding: 0.6rem 0.8rem !important;
     }
 
-// Заголовки
-th {
-  background-color: #D9C3E1 !important;
-  font-weight: 600 !important;
-}
+    th {
+      background-color: $table-header-bg !important;
+      color: $table-header-text !important;
+      font-weight: 600 !important;
+    }
 
-// Нечётные строки
-tbody tr:nth-child(odd) > td {
-  background-color: #FAF5E8 !important;
-}
+    td {
+      color: $table-cell-text !important;
+    }
 
-// Чётные строки
-tbody tr:nth-child(even) > td {
-  background-color: #EEE4D6 !important;
-}
+    tbody tr:nth-child(odd) > td {
+      background-color: $table-row-odd-bg !important;
+    }
 
-// Наведение
-tbody tr:hover > td {
-  background-color: #E8D4ED !important;
-}
+    tbody tr:nth-child(even) > td {
+      background-color: $table-row-even-bg !important;
+    }
+
+    tbody tr:hover > td {
+      background-color: $table-row-hover-bg !important;
+    }
   }
 }
