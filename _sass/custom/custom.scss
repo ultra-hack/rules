@@ -24,24 +24,25 @@
       padding: 0.6rem 0.8rem !important;
     }
 
-    // Заголовки
-    th {
-      background-color: #D4D3E6 !important; // Сделаем заголовок чуть темнее
-      font-weight: 600 !important;
-    }
+// Заголовки
+th {
+  background-color: #D9C3E1 !important;
+  font-weight: 600 !important;
+}
 
-    // Полосатые строки (зебра)
-    tbody tr:nth-child(odd) > td {
-      background-color: #F1F0FF !important;
-    }
+// Нечётные строки
+tbody tr:nth-child(odd) > td {
+  background-color: #FAF5E8 !important;
+}
 
-    tbody tr:nth-child(even) > td {
-      background-color: #D4D3E6 !important;
-    }
+// Чётные строки
+tbody tr:nth-child(even) > td {
+  background-color: #EEE4D6 !important;
+}
 
-    // Подсветка при наведении (опционально)
-    tbody tr:hover > td {
-      background-color: #FBF0FF !important;
-    }
+// Наведение
+tbody tr:hover > td {
+  background-color: #E8D4ED !important;
+}
   }
 }
