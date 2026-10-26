@@ -8,16 +8,10 @@
   unicode-range: U+0020-00D6, U+00D8-10FFFF;
 }
 
-// Шрифт-заглушка ТОЛЬКО для знака умножения.
-// Берётся из системных шрифтов, где × точно есть.
-@font-face {
-  font-family: 'SymbolFallback';
-  src: local('DejaVu Sans'), local('Noto Sans'), local('Arial');
-  unicode-range: U+00D7;
-}
+
 
 .main-content {
-  font-family: 'SymbolFallback', 'Souvenir', sans-serif;
+  font-family: 'Cambria', sans-serif;
 }
 .main-content hr {
   margin-top: 0.5rem !important;
