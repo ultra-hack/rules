@@ -32,11 +32,11 @@
 
     // Полосатые строки (зебра)
     tbody tr:nth-child(odd) > td {
-      background-color: #FBF0FF !important;
+      background-color: #F1F0FF !important;
     }
 
     tbody tr:nth-child(even) > td {
-      background-color: #F1F0FF !important;
+      background-color: #D4D3E6 !important;
     }
 
     // Подсветка при наведении (опционально)
