@@ -13,22 +13,29 @@
 <script>
   (function() {
     var btn = document.getElementById('theme-toggle');
-    var html = document.documentElement;
+    var currentTheme = localStorage.getItem('theme') || 'ultra';
 
-    function updateBtn() {
-      btn.textContent = html.hasAttribute('data-theme') ? 'Тема ultra' : 'Тёмная тема';
+    // Устанавливаем сохранённую тему при загрузке
+    if (currentTheme === 'darker') {
+      jtd.setTheme('darker');
+      btn.textContent = 'Тема ultra';
+    } else {
+      // 'ultra' уже загружена из _config.yml, но на всякий случай
+      jtd.setTheme('ultra');
+      btn.textContent = 'Тёмная тема';
     }
-    updateBtn();
 
     btn.addEventListener('click', function() {
-      if (html.hasAttribute('data-theme')) {
-        html.removeAttribute('data-theme');
+      var isDark = localStorage.getItem('theme') === 'darker';
+      if (isDark) {
+        jtd.setTheme('ultra');
         localStorage.setItem('theme', 'ultra');
+        btn.textContent = 'Тёмная тема';
       } else {
-        html.setAttribute('data-theme', 'dark');
+        jtd.setTheme('darker');
         localStorage.setItem('theme', 'darker');
+        btn.textContent = 'Светлая тема';
       }
-      updateBtn();
     });
   })();
 </script>
