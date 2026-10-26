@@ -1,23 +1,51 @@
-<a href="https://t.me/posos_dev"
-   class="btn"
-   target="_blank"
-   rel="noopener"
-   style="align-self: center; height: auto; padding: 0.4rem 0.8rem; line-height: 1;">
+<!-- Кнопка Telegram -->
+<a href="https://t.me/posos_dev" class="btn" target="_blank" rel="noopener" style="align-self: center; height: auto; padding: 0.4rem 0.8rem; line-height: 1;">
   Telegram-канал
 </a>
 
+<!-- Кнопка переключения темы -->
 <button
   id="theme-toggle"
   class="btn"
   style="align-self: center; height: auto; padding: 0.4rem 0.8rem; line-height: 1; margin-left: 1rem;"
-  onclick="
-    if (typeof jtd === 'undefined') { console.log('[Кнопка] ОШИБКА: jtd не загружен'); return; }
-    var next = jtd.getTheme() === 'darker' ? 'ultra' : 'darker';
-    jtd.setTheme(next);
-    localStorage.setItem('theme', next);
-    console.log('[Кнопка] Тема переключена на:', next);
-    this.textContent = next === 'darker' ? 'Светлая тема' : 'Тёмная тема';
-  "
 >
   Тёмная тема
 </button>
+
+<script>
+  (function() {
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+
+    // Ждем, пока just-the-docs.js загрузит объект jtd (он грузится в самом конце)
+    var tries = 0;
+    var timer = setInterval(function() {
+      if (typeof jtd !== 'undefined') {
+        clearInterval(timer);
+        
+        // 1. Проверяем сохраненную тему и применяем её
+        var saved = localStorage.getItem('theme');
+        if (saved === 'darker') {
+          jtd.setTheme('darker');
+          btn.textContent = 'Светлая тема';
+        } else {
+          jtd.setTheme('ultra');
+          btn.textContent = 'Тёмная тема';
+        }
+
+        // 2. Настраиваем клик по кнопке
+        btn.addEventListener('click', function() {
+          var isDark = jtd.getTheme() === 'darker';
+          var next = isDark ? 'ultra' : 'darker';
+          
+          jtd.setTheme(next);
+          localStorage.setItem('theme', next);
+          
+          btn.textContent = isDark ? 'Тёмная тема' : 'Светлая тема';
+        });
+      }
+      
+      if (++tries > 100) clearInterval(timer); // Страховка (5 секунд)
+    }, 50);
+  })();
+</script>
