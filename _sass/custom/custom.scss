@@ -26,22 +26,22 @@
 
     // Заголовки
     th {
-      background-color: #e0e0e0 !important; // Сделаем заголовок чуть темнее
+      background-color: #D4D3E6 !important; // Сделаем заголовок чуть темнее
       font-weight: 600 !important;
     }
 
     // Полосатые строки (зебра)
     tbody tr:nth-child(odd) > td {
-      background-color: #f8f8f8 !important;
+      background-color: #FBF0FF !important;
     }
 
     tbody tr:nth-child(even) > td {
-      background-color: #f0f0f0 !important;
+      background-color: #F1F0FF !important;
     }
 
     // Подсветка при наведении (опционально)
     tbody tr:hover > td {
-      background-color: #e8e8e8 !important;
+      background-color: #E2DAE6 !important;
     }
   }
 }
