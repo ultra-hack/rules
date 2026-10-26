@@ -5,16 +5,25 @@
 {%- endif -%}
 
 <script>
-  (function() {
-    var saved = localStorage.getItem('theme');
-    if (saved === 'darker') {
-      // Находим все CSS-файлы и подменяем основной на тёмный
-      var links = document.querySelectorAll('link[rel="stylesheet"]');
-      for (var i = 0; i < links.length; i++) {
-        if (links[i].href.indexOf('just-the-docs') !== -1) {
-          links[i].href = links[i].href.replace(/just-the-docs-(default|ultra)\.css/, 'just-the-docs-darker.css');
+  (function () {
+    try {
+      // Читаем сохранённую тему. Используем ключ 'theme', но дублируем в 'jtd-theme' на всякий случай
+      var saved = localStorage.getItem('theme');
+      if (saved === 'darker') {
+        // Находим основной CSS-файл темы (ultra) и меняем его на darker
+        var links = document.querySelectorAll('link[rel="stylesheet"]');
+        for (var i = 0; i < links.length; i++) {
+          var href = links[i].getAttribute('href');
+          if (href && href.indexOf('just-the-docs-ultra.css') !== -1) {
+            links[i].setAttribute('href', href.replace('just-the-docs-ultra.css', 'just-the-docs-darker.css'));
+            break;
+          }
         }
+        // Помечаем html для возможных CSS-правил
+        document.documentElement.setAttribute('data-theme', 'darker');
       }
+    } catch (e) {
+      // Молча игнорируем, чтобы не ломать страницу
     }
   })();
 </script>
