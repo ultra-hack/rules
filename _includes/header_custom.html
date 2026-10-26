@@ -11,25 +11,44 @@
 </button>
 
 <script>
-  window.addEventListener('load', function() {
-    var btn = document.getElementById('theme-toggle');
+(function() {
+  var btn = document.getElementById('theme-toggle');
+  if (!btn) { console.error('Кнопка #theme-toggle не найдена'); return; }
 
-    function updateLabel() {
-      btn.textContent = jtd.getTheme() === 'darker' ? 'Светлая тема' : 'Тёмная тема';
-    }
+  function updateLabel() {
+    try {
+      btn.textContent = (typeof jtd !== 'undefined' && jtd.getTheme() === 'darker')
+        ? 'Тема ultra'
+        : 'Тёмная тема';
+    } catch (e) { console.error('updateLabel error:', e); }
+  }
 
-    // Применяем сохранённую тему (если отличается от загруженной)
-    var saved = localStorage.getItem('theme');
-    if (saved && saved !== jtd.getTheme()) {
-      jtd.setTheme(saved);
-    }
-    updateLabel();
-
-    btn.addEventListener('click', function() {
-      var newTheme = jtd.getTheme() === 'darker' ? 'ultra' : 'darker';
-      jtd.setTheme(newTheme);
-      localStorage.setItem('theme', newTheme);
+  // Обработчик клика вешается сразу — кнопка не зависит от load
+  btn.addEventListener('click', function() {
+    console.log('click, typeof jtd =', typeof jtd);
+    if (typeof jtd === 'undefined') return;
+    try {
+      var next = jtd.getTheme() === 'darker' ? 'ultra' : 'darker';
+      jtd.setTheme(next);
+      localStorage.setItem('theme', next);
       updateLabel();
-    });
+      console.log('switched to:', next);
+    } catch (e) {
+      console.error('Ошибка переключения:', e);
+    }
   });
+
+  // Применяем сохранённую тему при загрузке — отдельно и безопасно
+  window.addEventListener('load', function() {
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved && typeof jtd !== 'undefined' && saved !== jtd.getTheme()) {
+        jtd.setTheme(saved);
+      }
+      updateLabel();
+    } catch (e) {
+      console.error('Ошибка инициализации темы:', e);
+    }
+  });
+})();
 </script>
