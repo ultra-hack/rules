@@ -1,20 +1,19 @@
 @font-face {
   font-family: 'Cambria';
-  src: url('/assets/fonts/cambria.ttf') format('truetype');
+  src: url('/rules/assets/fonts/cambria.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
-// Значения светлой темы.
-// В darker.scss они переопределяются до подключения этого файла.
 $ultra-dark-mode: false !default;
-
 $table-header-bg: #D9C3E1 !default;
 $table-header-text: inherit !default;
 $table-row-odd-bg: #FAF5E8 !default;
 $table-row-even-bg: #EEE4D6 !default;
 $table-row-hover-bg: #E8D4ED !default;
 $table-cell-text: inherit !default;
+$table-cell-border: #d0d0d0 !default;
 
 .main-content {
   font-family: 'Cambria', Georgia, serif;
@@ -27,7 +26,7 @@ $table-cell-text: inherit !default;
   .table-wrapper > table {
     th,
     td {
-      border: 1px solid #d0d0d0 !important;
+      border: 1px solid $table-cell-border !important;
       padding: 0.6rem 0.8rem !important;
     }
 
@@ -55,14 +54,26 @@ $table-cell-text: inherit !default;
   }
 }
 
-// Оформление только для тёмной темы.
 @if $ultra-dark-mode {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    scrollbar-color: #725B7C #251E2A;
+    scrollbar-width: thin;
+  }
+
+  ::selection {
+    color: #F2DDF7;
+    background: #70416D;
+  }
+
   .main-content a:not(.btn) {
     color: #E5A0C6;
     text-decoration-color: rgba(229, 160, 198, 0.45);
     text-underline-offset: 0.18em;
     text-decoration-thickness: 1px;
-    transition: color 0.15s ease, text-decoration-color 0.15s ease;
   }
 
   .main-content a:not(.btn):hover {
@@ -99,10 +110,48 @@ $table-cell-text: inherit !default;
     background: #382C3D;
   }
 
+  .main-header .btn {
+    color: #F0AED5;
+    background: #382C3D;
+    border: 1px solid #65506D;
+    border-radius: 6px;
+    box-shadow: none;
+  }
+
+  .main-header .btn:hover,
+  .main-header .btn:active {
+    color: #F2DDF7;
+    background: #493450;
+    border-color: #D88AB8;
+    box-shadow: none;
+  }
+
+  .search-input,
+  .search-active .search-input {
+    color: #E8E0E8;
+    background: #2A222E;
+  }
+
+  .search-input::placeholder {
+    color: #B8A8BF;
+    opacity: 1;
+  }
+
+  .search-icon {
+    color: #C99CD5;
+  }
+
+  .search-results {
+    color: #E8E0E8;
+    background: #2A222E;
+  }
+
   .main-content a:focus-visible,
   .side-bar .nav-list-link:focus-visible,
-  .side-bar .nav-list-expander:focus-visible {
+  .side-bar .nav-list-expander:focus-visible,
+  .main-header .btn:focus-visible,
+  .search-input:focus-visible {
     outline: 2px solid #D88AB8;
-    outline-offset: 2px;
+    outline-offset: -2px;
   }
 }
