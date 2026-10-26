@@ -6,49 +6,17 @@
   Telegram-канал
 </a>
 
-<button id="theme-toggle" class="btn btn-outline" style="margin-left: 1rem;">
-  Тёмная тема
-</button>
-
-<script>
-(function() {
-  var btn = document.getElementById('theme-toggle');
-  if (!btn) { console.error('Кнопка #theme-toggle не найдена'); return; }
-
-  function updateLabel() {
-    try {
-      btn.textContent = (typeof jtd !== 'undefined' && jtd.getTheme() === 'darker')
-        ? 'Тема ultra'
-        : 'Тёмная тема';
-    } catch (e) { console.error('updateLabel error:', e); }
-  }
-
-  // Обработчик клика вешается сразу — кнопка не зависит от load
-  btn.addEventListener('click', function() {
-    console.log('click, typeof jtd =', typeof jtd);
-    if (typeof jtd === 'undefined') return;
-    try {
+<button
+  class="btn btn-outline"
+  style="margin-left: 1rem;"
+  onclick="
+    this.textContent = this.textContent === 'Тёмная тема' ? 'Светлая тема' : 'Тёмная тема';
+    if (typeof jtd !== 'undefined') {
       var next = jtd.getTheme() === 'darker' ? 'ultra' : 'darker';
       jtd.setTheme(next);
       localStorage.setItem('theme', next);
-      updateLabel();
-      console.log('switched to:', next);
-    } catch (e) {
-      console.error('Ошибка переключения:', e);
     }
-  });
-
-  // Применяем сохранённую тему при загрузке — отдельно и безопасно
-  window.addEventListener('load', function() {
-    try {
-      var saved = localStorage.getItem('theme');
-      if (saved && typeof jtd !== 'undefined' && saved !== jtd.getTheme()) {
-        jtd.setTheme(saved);
-      }
-      updateLabel();
-    } catch (e) {
-      console.error('Ошибка инициализации темы:', e);
-    }
-  });
-})();
-</script>
+  "
+>
+  Тёмная тема
+</button>
