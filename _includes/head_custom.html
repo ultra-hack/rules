@@ -19,7 +19,7 @@
         // Обновляем текст на кнопке, если она уже есть в DOM
         var btn = document.getElementById('theme-toggle');
         if (btn) {
-          btn.textContent = saved === 'darker' ? 'Тема ultra' : 'Тёмная тема';
+          btn.textContent = saved === 'darker' ? 'Светлая тема' : 'Тёмная тема';
         }
       }
       if (++tries > 100) clearInterval(timer); // страховка от вечного ожидания
