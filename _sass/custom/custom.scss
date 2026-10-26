@@ -51,5 +51,60 @@ $table-cell-text: inherit !default;
     tbody tr:hover > td {
       background-color: $table-row-hover-bg !important;
     }
+
+@if $color-scheme == "darker" {
+  // Ссылки в тексте: розовое подчёркивание вместо белого.
+  .main-content a:not(.btn) {
+    color: #E5A0C6;
+    text-decoration-color: rgba(229, 160, 198, 0.45);
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
+
+  .main-content a:not(.btn):hover {
+    color: #F2C4E1;
+    text-decoration-color: #F2C4E1;
+  }
+
+  // Читаемый текст бокового меню.
+  .side-bar .nav-list .nav-list-item > .nav-list-link {
+    color: #CDBFD1;
+    background: transparent;
+    border-radius: 6px;
+  }
+
+  // Наведение: background убирает и белый градиент.
+  .side-bar .nav-list .nav-list-item > .nav-list-link:hover,
+  .side-bar .nav-list .nav-list-item > .nav-list-link:focus-visible {
+    color: #F2DDF7;
+    background: #382C3D;
+  }
+
+  // Текущая страница.
+  .side-bar .nav-list .nav-list-item > .nav-list-link.active {
+    color: #F0AED5;
+    background: #493450;
+    box-shadow: inset 3px 0 0 #D88AB8;
+    font-weight: 600;
+  }
+
+  // Стрелки раскрытия разделов.
+  .side-bar .nav-list .nav-list-item > .nav-list-expander {
+    color: #C99CD5;
+    background: transparent;
+  }
+
+  .side-bar .nav-list .nav-list-item > .nav-list-expander:hover {
+    color: #F2DDF7;
+    background: #382C3D;
+  }
+
+  // Видимый фокус при управлении клавиатурой.
+  .main-content a:focus-visible,
+  .side-bar .nav-list-link:focus-visible,
+  .side-bar .nav-list-expander:focus-visible {
+    outline: 2px solid #D88AB8;
+    outline-offset: 2px;
   }
 }
