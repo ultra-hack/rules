@@ -12,30 +12,23 @@
 
 <script>
   (function() {
-    const toggleButton = document.getElementById('theme-toggle');
-    const body = document.body;
-    const savedTheme = localStorage.getItem('theme');
+    var btn = document.getElementById('theme-toggle');
+    var html = document.documentElement;
 
-    // По умолчанию — ultra (светлая)
-    if (savedTheme === 'dark') {
-      body.setAttribute('data-theme', 'dark');
-      toggleButton.textContent = 'Тема ultra';
-    } else {
-      body.removeAttribute('data-theme');
-      localStorage.setItem('theme', 'ultra');
-      toggleButton.textContent = 'Тёмная тема';
+    function updateBtn() {
+      btn.textContent = html.hasAttribute('data-theme') ? 'Тема ultra' : 'Тёмная тема';
     }
+    updateBtn();
 
-    toggleButton.addEventListener('click', () => {
-      if (body.getAttribute('data-theme') === 'dark') {
-        body.removeAttribute('data-theme');
+    btn.addEventListener('click', function() {
+      if (html.hasAttribute('data-theme')) {
+        html.removeAttribute('data-theme');
         localStorage.setItem('theme', 'ultra');
-        toggleButton.textContent = 'Тёмная тема';
       } else {
-        body.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-        toggleButton.textContent = 'Светлая тема';
+        html.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'darker');
       }
+      updateBtn();
     });
   })();
 </script>
