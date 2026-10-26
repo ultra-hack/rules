@@ -5,25 +5,33 @@
 {%- endif -%}
 
 <script>
-  (function () {
-    try {
-      // Читаем сохранённую тему. Используем ключ 'theme', но дублируем в 'jtd-theme' на всякий случай
-      var saved = localStorage.getItem('theme');
-      if (saved === 'darker') {
-        // Находим основной CSS-файл темы (ultra) и меняем его на darker
-        var links = document.querySelectorAll('link[rel="stylesheet"]');
-        for (var i = 0; i < links.length; i++) {
-          var href = links[i].getAttribute('href');
-          if (href && href.indexOf('just-the-docs-ultra.css') !== -1) {
-            links[i].setAttribute('href', href.replace('just-the-docs-ultra.css', 'just-the-docs-darker.css'));
-            break;
-          }
-        }
-        // Помечаем html для возможных CSS-правил
-        document.documentElement.setAttribute('data-theme', 'darker');
-      }
-    } catch (e) {
-      // Молча игнорируем, чтобы не ломать страницу
-    }
-  })();
+(function () {
+  var saved;
+
+  try {
+    saved = localStorage.getItem('theme');
+  } catch (error) {
+    return;
+  }
+
+  if (saved !== 'ultra' && saved !== 'darker') return;
+
+  var stylesheet = document.querySelector(
+    'link[rel="stylesheet"][href*="just-the-docs-default.css"],' +
+    'link[rel="stylesheet"][href*="just-the-docs-ultra.css"],' +
+    'link[rel="stylesheet"][href*="just-the-docs-darker.css"]'
+  );
+
+  if (!stylesheet) {
+    console.warn('Не найден основной CSS Just-the-Docs');
+    return;
+  }
+
+  var themeUrls = {
+    ultra: {{ '/assets/css/just-the-docs-ultra.css' | relative_url | jsonify }},
+    darker: {{ '/assets/css/just-the-docs-darker.css' | relative_url | jsonify }}
+  };
+
+  stylesheet.setAttribute('href', themeUrls[saved]);
+})();
 </script>
