@@ -5,16 +5,10 @@
   font-style: normal;
 }
 
-.main-content {
-  font-family: 'Cambria', sans-serif;
-}
-.main-content hr {
-  margin-top: 0.5rem !important;
-  margin-bottom: 0.5rem !important;
-}
+// Значения светлой темы.
+// В darker.scss они переопределяются до подключения этого файла.
+$ultra-dark-mode: false !default;
 
-// Цвета светлой темы.
-// !default сохраняет значения, заданные в darker.scss.
 $table-header-bg: #D9C3E1 !default;
 $table-header-text: inherit !default;
 $table-row-odd-bg: #FAF5E8 !default;
@@ -23,6 +17,13 @@ $table-row-hover-bg: #E8D4ED !default;
 $table-cell-text: inherit !default;
 
 .main-content {
+  font-family: 'Cambria', Georgia, serif;
+
+  hr {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
   .table-wrapper > table {
     th,
     td {
@@ -51,9 +52,11 @@ $table-cell-text: inherit !default;
     tbody tr:hover > td {
       background-color: $table-row-hover-bg !important;
     }
+  }
+}
 
-@if $color-scheme == "darker" {
-  // Ссылки в тексте: розовое подчёркивание вместо белого.
+// Оформление только для тёмной темы.
+@if $ultra-dark-mode {
   .main-content a:not(.btn) {
     color: #E5A0C6;
     text-decoration-color: rgba(229, 160, 198, 0.45);
@@ -67,21 +70,18 @@ $table-cell-text: inherit !default;
     text-decoration-color: #F2C4E1;
   }
 
-  // Читаемый текст бокового меню.
   .side-bar .nav-list .nav-list-item > .nav-list-link {
     color: #CDBFD1;
     background: transparent;
     border-radius: 6px;
   }
 
-  // Наведение: background убирает и белый градиент.
   .side-bar .nav-list .nav-list-item > .nav-list-link:hover,
   .side-bar .nav-list .nav-list-item > .nav-list-link:focus-visible {
     color: #F2DDF7;
     background: #382C3D;
   }
 
-  // Текущая страница.
   .side-bar .nav-list .nav-list-item > .nav-list-link.active {
     color: #F0AED5;
     background: #493450;
@@ -89,7 +89,6 @@ $table-cell-text: inherit !default;
     font-weight: 600;
   }
 
-  // Стрелки раскрытия разделов.
   .side-bar .nav-list .nav-list-item > .nav-list-expander {
     color: #C99CD5;
     background: transparent;
@@ -100,7 +99,6 @@ $table-cell-text: inherit !default;
     background: #382C3D;
   }
 
-  // Видимый фокус при управлении клавиатурой.
   .main-content a:focus-visible,
   .side-bar .nav-list-link:focus-visible,
   .side-bar .nav-list-expander:focus-visible {
