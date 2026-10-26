@@ -3,18 +3,3 @@
   <script src="{{ '/assets/js/vendor/lunr.stemmer.support.min.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/vendor/lunr.ru.min.js' | relative_url }}"></script>
 {%- endif -%}
-
-<script>
-  (function() {
-    var saved = localStorage.getItem('theme');
-    if (saved === 'darker') {
-      // Сразу подгружаем CSS тёмной темы, чтобы не было вспышки
-      var link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = '{{ "/assets/css/just-the-docs-darker.css" | relative_url }}';
-      document.head.appendChild(link);
-      // Устанавливаем атрибут для возможных CSS-правил
-      document.documentElement.setAttribute('data-theme', 'darker');
-    }
-  })();
-</script>
