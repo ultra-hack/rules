@@ -129,7 +129,14 @@ $table-cell-border: #d0d0d0 !default;
   .search-input,
   .search-active .search-input {
     color: #E8E0E8;
-    background: #2A222E;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .search-input-wrap,
+  .search-active .search-input-wrap {
+    background: transparent;
+    box-shadow: none;
   }
 
   .search-input::placeholder {
